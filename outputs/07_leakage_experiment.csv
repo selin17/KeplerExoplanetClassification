@@ -1,0 +1,5 @@
+Feature set,n_features,Accuracy,F1,ROC-AUC
+A) + koi_score + fpflags (LEAKY),43,0.9915,0.9895,0.9984
+"B) + fpflags, no score (LEAKY)",41,0.9699,0.9625,0.9947
+C) clean features (MAIN),37,0.9304,0.914,0.9782
+"D) clean, no stellar-temp errors",35,0.9279,0.9113,0.9773

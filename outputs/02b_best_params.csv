@@ -1,0 +1,7 @@
+,params
+Decision Tree,"{'clf__max_depth': 12, 'clf__min_samples_leaf': 20}"
+Random Forest,"{'clf__max_depth': None, 'clf__min_samples_leaf': 1, 'clf__n_estimators': 400}"
+SVM (RBF),"{'clf__C': 10, 'clf__gamma': 0.01}"
+MLP,"{'clf__alpha': 0.01, 'clf__hidden_layer_sizes': (64, 32)}"
+Naive Bayes,{'clf__var_smoothing': 1e-05}
+Logistic Regression,{'clf__C': 10}

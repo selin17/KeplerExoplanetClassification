@@ -1,0 +1,71 @@
+Raw table: 8054 rows x 49 columns
+koi_disposition
+FALSE POSITIVE    3965
+CONFIRMED         2731
+CANDIDATE         1358
+Name: count, dtype: int64 
+
+Labeled: 6696 | CONFIRMED share: 0.408 | unique stars: 5829
+Empty columns dropped: ['koi_teq_err1', 'koi_teq_err2']
+Main feature set: 36 numeric + 1 categorical
+
+Train: 5357  Test: 1339  (test CONFIRMED share 0.408)
+
+Decision Tree        AUC=0.951  F1=0.859  best={'clf__max_depth': None, 'clf__min_samples_leaf': 20}
+Random Forest        AUC=0.980  F1=0.911  best={'clf__max_depth': None, 'clf__min_samples_leaf': 3, 'clf__n_estimators': 400}
+SVM (RBF)            AUC=0.982  F1=0.922  best={'clf__C': 10, 'clf__gamma': 0.01}
+MLP                  AUC=0.981  F1=0.918  best={'clf__alpha': 0.0001, 'clf__hidden_layer_sizes': (64, 32)}
+Naive Bayes          AUC=0.930  F1=0.823  best={'clf__var_smoothing': 1e-09}
+Logistic Regression  AUC=0.963  F1=0.879  best={'clf__C': 10}
+
+                      Accuracy  Precision  Recall      F1  ROC-AUC  Specificity     MCC   Kappa  Balanced Acc  CV AUC (train)
+Model                                                                                                                       
+SVM (RBF)              0.9365     0.9276  0.9158  0.9217   0.9820       0.9508  0.8684  0.8683        0.9333          0.9790
+MLP                    0.9350     0.9422  0.8956  0.9183   0.9811       0.9622  0.8652  0.8644        0.9289          0.9781
+Random Forest          0.9291     0.9362  0.8864  0.9106   0.9801       0.9584  0.8528  0.8519        0.9224          0.9765
+Logistic Regression    0.9022     0.8835  0.8755  0.8795   0.9630       0.9206  0.7972  0.7971        0.8980          0.9600
+Decision Tree          0.8887     0.8885  0.8315  0.8590   0.9508       0.9281  0.7684  0.7673        0.8798          0.9529
+Naive Bayes            0.8506     0.7952  0.8535  0.8233   0.9301       0.8487  0.6955  0.6942        0.8511          0.9250 
+
+Best model (by test ROC-AUC): SVM (RBF)
+
+Top features:
+ koi_prad             0.0240
+koi_steff_err1       0.0078
+koi_prad_err2        0.0058
+koi_period           0.0056
+koi_prad_err1        0.0045
+koi_impact           0.0042
+koi_steff_err2       0.0037
+koi_duration_err2    0.0034 
+
+Experiment A - balancing (5-fold grouped CV):
+                           accuracy  recall      f1  roc_auc
+Variant                                                    
+No balancing                0.9289  0.9059  0.9122   0.9780
+class_weight=balanced       0.9285  0.9154  0.9125   0.9786
+SMOTE (train folds only)    0.9291  0.9147  0.9132   0.9782 
+
+Experiment B - leakage check:
+                                   n_features  Accuracy      F1  ROC-AUC
+Feature set                                                            
+A) + koi_score + fpflags (LEAKY)          43    0.9913  0.9893   0.9986
+B) + fpflags, no score (LEAKY)            41    0.9715  0.9644   0.9949
+C) clean features (MAIN)                  37    0.9289  0.9122   0.9780
+D) clean, no stellar-temp errors          35    0.9261  0.9091   0.9764 
+
+1358 CANDIDATE objects scored with SVM (RBF).
+  predicted planet (p>=0.5): 541   high confidence (p>=0.9): 190
+kepoi_name    kepid  planet_probability
+ K01972.01 11253711            0.999996
+ K00974.01  9414417            0.999991
+ K01303.01 10867062            0.999985
+ K01962.01  5513648            0.997198
+ K00935.04  9347899            0.997185
+ K03310.01 12253769            0.996904
+ K00350.01 11395587            0.996689
+ K01145.01  8313667            0.996630
+ K01574.03 10028792            0.996567
+ K01708.01  7750419            0.995840
+
+Done. All outputs in ./outputs

@@ -1,0 +1,4 @@
+Variant,accuracy,recall,f1,roc_auc
+No balancing,0.9304,0.9073,0.914,0.9782
+class_weight=balanced,0.9291,0.9021,0.912,0.9784
+SMOTE (train folds only),0.9289,0.9156,0.913,0.9782
